@@ -1,5 +1,8 @@
 using System;
+
+using MindboxTestTask.Abstractions;
 using MindboxTestTask.Implementations;
+
 using NUnit.Framework;
 
 namespace MindboxTestTaskTests.Figures;
@@ -7,6 +10,8 @@ namespace MindboxTestTaskTests.Figures;
 [TestFixture]
 public class TriangleTests
 {
+    private IFigure triangle;
+    
     [Test]
     [TestCase(1, 1, -1)]
     [TestCase(1, -1, 1)]
@@ -16,7 +21,7 @@ public class TriangleTests
     [TestCase(0, 1, 1)]
     public void Ctor_OneSideIsNegativeOrZero_ThrowsAnException(double a, double b, double c)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(a, b, c));
+        Assert.Throws<ArgumentException>(() => triangle = new Triangle(a, b, c));
     }
 
     [Test]
@@ -25,13 +30,13 @@ public class TriangleTests
     [TestCase(3, 1, 1)]
     public void Ctor_SumOfTwoSidesIsLessThanThirdOne_ThrowsAnException(double a, double b, double c)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(a, b, c));
+        Assert.Throws<ArgumentException>(() => triangle = new Triangle(a, b, c));
     }
 
     [Test]
     public void GetSquare_SidesAre3And4And5_6IsReturned()
     {
-        var triangle = new Triangle(3, 4, 5);
+        triangle = new Triangle(3, 4, 5);
 
         var square = triangle.GetSquare();
         
@@ -41,7 +46,7 @@ public class TriangleTests
     [Test]
     public void IsRectangular_SidesAre3And4And5_ReturnsTrue()
     {
-        var triangle = new Triangle(3, 4, 5);
+        triangle = new Triangle(3, 4, 5);
 
         var isRectangular = triangle.IsRectangular();
         
@@ -51,7 +56,7 @@ public class TriangleTests
     [Test]
     public void IsRectangular_SidesAre4And5And6_ReturnsFalse()
     {
-        var triangle = new Triangle(4, 5, 6);
+        triangle = new Triangle(4, 5, 6);
 
         var isRectangular = triangle.IsRectangular();
         
