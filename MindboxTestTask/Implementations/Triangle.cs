@@ -9,13 +9,9 @@ public class Triangle : IFigure
     public Triangle(double a, double b, double c)
     {
         if (a <= 0 || b <= 0 || c <= 0)
-            throw new ArgumentOutOfRangeException();
-        if (a > b + c)
-            throw new ArgumentOutOfRangeException();
-        if (b > a + c)
-            throw new ArgumentOutOfRangeException();
-        if (c > a + b)
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentException("None of a triangle sides can be less or equal to zero");
+        if (a > b + c || b > a + c || c > a + b)
+            throw new ArgumentException("The side of triangle cannot be less than sum of two others");
 
         _sides = new[] {a, b, c};
     }
